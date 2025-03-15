@@ -4,6 +4,16 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/ItsCottin/RCF.Modulum.Domain</RepositoryUrl>
+    <Description>Nuget Domain para projeto Modulum </Description>
+    <PackageReleaseNotes>Adicionado suporte para Modulum</PackageReleaseNotes>
+    <Version>0.0.2</Version>
+    <PackageId>RCF.Modulum.Domain</PackageId>
+    <Title>RCF.Modulum.Domain</Title>
+    <Authors>RCF.Modulum.Domain</Authors>
+    <Company>RCF.Modulum.Domain</Company>
+    <Product>RCF.Modulum.Domain</Product>
   </PropertyGroup>
 
   <ItemGroup>
