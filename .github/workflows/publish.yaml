@@ -28,6 +28,9 @@ jobs:
       - name: Restore Dependencies
         run: dotnet restore
 
+      - name: Build Project  # ETAPA ADICIONADA
+        run: dotnet build --configuration Release
+
       - name: Pack NuGet Package
         run: dotnet pack --configuration Release -p:Version=${{ env.VERSION }} --output nupkgs
 
