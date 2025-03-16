@@ -79,4 +79,4 @@ jobs:
         run: dotnet pack --configuration Release -p:Version=${{ env.new_version }} --output nupkgs
 
       - name: Publish NuGet Package
-        run: dotnet nuget push nupkgs/*.nupkg --source "https://nuget.pkg.github.com/ItsCottin/index.json" --api-key ${{ secrets.TOKEN_MOD_GOD }} --skip-duplicate
+        run: dotnet nuget push nupkgs/*.nupkg --source "https://nuget.pkg.github.com/ItsCottin/index.json" --api-key ${{ secrets.token }} --skip-duplicate
