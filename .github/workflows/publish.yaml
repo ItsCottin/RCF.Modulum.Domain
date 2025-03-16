@@ -80,5 +80,8 @@ jobs:
       - name: Pack NuGet Package
         run: dotnet pack --configuration Release -p:Version=${{ env.new_version }} --output nupkgs
 
-      - name: Publish NuGet Package
+      - name: Publish NuGet Package - GitHub
         run: dotnet nuget push nupkgs/*.nupkg --source "https://nuget.pkg.github.com/ItsCottin/index.json" --api-key ${{ secrets.token }} --skip-duplicate
+        
+      - name: Publish NuGet Package - NuGet.org
+        run: dotnet nuget push nupkgs/*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.TOKEN_NUGET_ORG }} --skip-duplicate
