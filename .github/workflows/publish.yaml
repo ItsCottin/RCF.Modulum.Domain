@@ -3,7 +3,7 @@ name: Publish NuGet Package
 on:
   push:
     branches:
-      - main  # Publica o pacote apenas quando houver commits na branch principal
+      - '**'  # Publica o pacote apenas quando houver commits na branch principal
   workflow_dispatch:
 
 jobs:
