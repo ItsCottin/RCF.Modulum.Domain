@@ -22,7 +22,7 @@ jobs:
       - name: Get current version from GitHub environment variable
         id: get_version
         run: |
-          VERSION=$(curl -H "Authorization: Bearer ${{ secrets.TOKEN_MOD_GOD }}" \
+          VERSION=$(curl -H "Authorization: Bearer ${{ secrets.token }}" \
                         -H "Accept: application/vnd.github.v3+json" \
                         https://api.github.com/repos/ItsCottin/RCF.Modulum.Domain/environments/deploy/variables/RCF_MODULUM_DOMAIN_VERSION \
                         | jq -r '.value')
@@ -63,7 +63,7 @@ jobs:
         run: |
           NEW_VERSION=${{ env.new_version }}
           curl -X PATCH \
-            -H "Authorization: Bearer ${{ secrets.TOKEN_MOD_GOD }}" \
+            -H "Authorization: Bearer ${{ secrets.token }}" \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Content-Type: application/json" \
             -d "{\"name\":\"VERSION\", \"value\":\"$NEW_VERSION\"}" \
