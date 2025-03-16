@@ -19,6 +19,13 @@ jobs:
         with:
           dotnet-version: '8.0'  # Ajuste conforme necessário
 
+      - name: Debug GitHub Environment Variable Fetch
+        run: |
+          RESPONSE=$(curl -H "Authorization: Bearer ${{ secrets.token }}" \
+                          -H "Accept: application/vnd.github.v3+json" \
+                          https://api.github.com/repos/ItsCottin/RCF.Modulum.Domain/environments/deploy/variables/RCF_MODULUM_DOMAIN_VERSION)
+          echo "Response from GitHub API: $RESPONSE"
+
       - name: Get current version from GitHub environment variable
         id: get_version
         run: |
@@ -27,6 +34,7 @@ jobs:
                         https://api.github.com/repos/ItsCottin/RCF.Modulum.Domain/environments/deploy/variables/RCF_MODULUM_DOMAIN_VERSION \
                         | jq -r '.value')
 
+          echo "Fetched Version: $VERSION"
           # Se a versão ainda não estiver definida, define como 0.0.1-beta.1
           if [ "$VERSION" == "null" ] || [ -z "$VERSION" ]; then
             VERSION="0.0.1-beta.1"
@@ -58,10 +66,12 @@ jobs:
 
           echo "Nova versão: $NEW_VERSION"
           echo "new_version=$NEW_VERSION" >> $GITHUB_ENV
+          echo "Current version from environment: ${{ env.current_version }}"
 
       - name: Update environment variable VERSION
         run: |
           NEW_VERSION=${{ env.new_version }}
+          echo "Current version from environment: ${{ env.current_version }}"
           curl -X PATCH \
             -H "Authorization: Bearer ${{ secrets.token }}" \
             -H "Accept: application/vnd.github.v3+json" \
@@ -69,14 +79,14 @@ jobs:
             -d "{\"name\":\"VERSION\", \"value\":\"$NEW_VERSION\"}" \
             https://api.github.com/repos/ItsCottin/RCF.Modulum.Domain/environments/deploy/variables/RCF_MODULUM_DOMAIN_VERSION
 
-      - name: Restore Dependencies
-        run: dotnet restore
+#      - name: Restore Dependencies
+#        run: dotnet restore
 
-      - name: Build Project
-        run: dotnet build --configuration Release
+#      - name: Build Project
+#        run: dotnet build --configuration Release
 
-      - name: Pack NuGet Package
-        run: dotnet pack --configuration Release -p:Version=${{ env.new_version }} --output nupkgs
+#      - name: Pack NuGet Package
+#        run: dotnet pack --configuration Release -p:Version=${{ env.new_version }} --output nupkgs
 
       - name: Publish NuGet Package
         run: dotnet nuget push nupkgs/*.nupkg --source "https://nuget.pkg.github.com/ItsCottin/index.json" --api-key ${{ secrets.token }} --skip-duplicate
