@@ -83,7 +83,7 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.token }}" \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Content-Type: application/json" \
-            -d "{\"name\":\"VERSION\", \"value\":\"$NEW_VERSION\"}" \
+            -d "{\"name\":\"RCF_MODULUM_DOMAIN_VERSION\", \"value\":\"$NEW_VERSION\"}" \
             https://api.github.com/repos/ItsCottin/RCF.Modulum.Domain/environments/deploy/variables/RCF_MODULUM_DOMAIN_VERSION
 
 #      - name: Restore Dependencies
