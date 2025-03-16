@@ -19,6 +19,13 @@ jobs:
         with:
           dotnet-version: '8.0'  # Ajuste conforme necessário
 
+      - name: Debug List All Environment Variables
+        run: |
+          RESPONSE=$(curl -H "Authorization: Bearer ${{ secrets.token }}" \
+                          -H "Accept: application/vnd.github.v3+json" \
+                          https://api.github.com/repos/ItsCottin/RCF.Modulum.Domain/environments/deploy/variables)
+          echo "All Environment Variables: $RESPONSE"
+
       - name: Debug GitHub Environment Variable Fetch
         run: |
           RESPONSE=$(curl -H "Authorization: Bearer ${{ secrets.token }}" \
