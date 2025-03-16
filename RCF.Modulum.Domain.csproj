@@ -8,17 +8,30 @@
     <RepositoryUrl>https://github.com/ItsCottin/RCF.Modulum.Domain</RepositoryUrl>
     <Description>Nuget Domain para projeto Modulum </Description>
     <PackageReleaseNotes>Adicionado suporte para Modulum</PackageReleaseNotes>
-    <Version>0.0.2</Version>
+    <Version>0.0.4</Version>
     <PackageId>RCF.Modulum.Domain</PackageId>
     <Title>RCF.Modulum.Domain</Title>
-    <Authors>RCF.Modulum.Domain</Authors>
-    <Company>RCF.Modulum.Domain</Company>
-    <Product>RCF.Modulum.Domain</Product>
+    <Authors>Cottin</Authors>
+    <Company>RCF</Company>
+    <Product>Modulum</Product>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>Licence.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Enums\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Licence.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
