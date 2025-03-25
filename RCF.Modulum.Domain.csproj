@@ -19,11 +19,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Enums\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Licence.txt">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
