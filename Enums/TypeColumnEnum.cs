@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace RCF.Modulum.Domain.Enums
+namespace modulum.Domain.Enums
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum TypeColumnEnum
     {
-        Varchar,
-        Int,
-        DateTime
+        VARCHAR,
+        INT,
+        DATE,
+        BIGINT
     }
 }
