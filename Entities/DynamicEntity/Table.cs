@@ -18,6 +18,7 @@ namespace modulum.Domain.Entities.DynamicEntity
         public string? CampoPK { get; set; }
         public string? JsonObject { get; set; }
         public string? TelaObject { get; set; }
+        public int IdUsuario { get; set; } 
 
         public List<Field> Fields { get; set; } = new();
     }
