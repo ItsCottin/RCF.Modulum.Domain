@@ -14,7 +14,8 @@ namespace modulum.Domain.Entities.DynamicEntity
     {
         public Field() 
         {
-            IsPrimaryKey = false; 
+            IsPrimaryKey = false;
+            IsForeigeKey = false;
         }
 
         [Key]
@@ -24,6 +25,7 @@ namespace modulum.Domain.Entities.DynamicEntity
         public TypeColumnEnum? Tipo { get; set; }
         public int? Tamanho { get; set; }
         public bool IsPrimaryKey { get; set; }
+        public bool IsForeigeKey { get; set; }
         public bool IsObrigatorio { get; set; }
         public int TableId { get; set; }
 

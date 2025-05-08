@@ -16,10 +16,11 @@ namespace modulum.Domain.Entities.DynamicEntity
         public string? NomeTabela { get; set; }
         public string? NomeTela { get; set; }
         public string? CampoPK { get; set; }
-        public string? JsonObject { get; set; }
-        public string? TelaObject { get; set; }
         public int IdUsuario { get; set; } 
 
         public List<Field> Fields { get; set; } = new();
+
+        public List<Relationship> RelacionamentosComoOrigem { get; set; } = new();
+        public List<Relationship> RelacionamentosComoDestino { get; set; } = new();
     }
 }
