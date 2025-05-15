@@ -23,6 +23,7 @@ namespace modulum.Domain.Entities.DynamicEntity
         public string CampoOrigem { get; set; } = null!;
         public string CampoDestino { get; set; } = null!;
         public string NomeConstraint { get; set; } = null!;
+        public bool IsObrigatorio { get; set; } = false;
         public string? CampoParaExibicaoRelacionamento { get; set; }
         public TypeRelationshipEnum Tipo { get; set; }
     }
