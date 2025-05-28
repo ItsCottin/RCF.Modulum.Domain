@@ -14,6 +14,7 @@ namespace modulum.Domain.Entities
         public string RequestedVersion { get; set; }
         public string ResolvedVersion { get; set; }
         public string Framework { get; set; }
-        public string PacoteRaiz { get; set; }
+        public int ProjetoId { get; set; }
+        public Projeto Projeto { get; set; }
     }
 }
