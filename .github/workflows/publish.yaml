@@ -60,15 +60,52 @@ jobs:
           echo "new_version=$NEW_VERSION" >> $GITHUB_ENV
           echo "Current version from environment: ${{ env.current_version }}"
 
+      - name: Update environment variable VERSION
+        run: |
+          NEW_VERSION=${{ env.new_version }}
+          echo "Current version from environment: ${{ env.current_version }}"
+          curl -X PATCH \
+            -H "Authorization: Bearer ${{ secrets.token }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Content-Type: application/json" \
+            -d "{\"name\":\"RCF_MODULUM_DOMAIN_VERSION\", \"value\":\"$NEW_VERSION\"}" \
+            https://api.github.com/repos/ItsCottin/RCF.Modulum.Domain/environments/deploy/variables/RCF_MODULUM_DOMAIN_VERSION
+
       - name: Restore Dependencies
         run: dotnet restore
 
       - name: Build Project
         run: dotnet build --configuration Release
 
-        # Debug do comando: dotnet list package --format json
-      - name: Listar pacotes NuGet (JSON)
+        # Immplementação do registro de versao
+      - name: Run dotnet list package and save to file
         run: |
-          echo "Executando 'dotnet list package --format json'..."
-          dotnet list package --format json
+          dotnet list package --format json > nuget-packages.json
 
+      - name: Get JWT Token from API
+        id: get_token
+        run: |
+          RESPONSE=$(curl -s -X POST \
+            -H "Content-Type: application/json" \
+            -d "{\"email\":\"${{ secrets.REGISTER_USER }}\",\"password\":\"${{ secrets.REGISTER_PASSWORD }}\"}" \
+            "${{ secrets.URL_API_LOGIN }}")
+
+          echo "token=$RESPONSE" >> $GITHUB_ENV
+
+      - name: Send NuGet Info to API
+        run: |
+          curl -s -X POST \
+            -H "Authorization: Bearer ${{ env.token }}" \
+            -H "Content-Type: application/json" \
+            --data-binary @nuget-packages.json \
+            "${{ secrets.URL_API_REGISTER_NUGET }}"
+        # fim Immplementação do registro de versao
+
+      - name: Pack NuGet Package
+        run: dotnet pack --configuration Release -p:Version=${{ env.new_version }} --output nupkgs
+
+      - name: Publish NuGet Package - GitHub
+        run: dotnet nuget push nupkgs/*.nupkg --source "https://nuget.pkg.github.com/ItsCottin/index.json" --api-key ${{ secrets.token }} --skip-duplicate
+        
+      - name: Publish NuGet Package - NuGet.org
+        run: dotnet nuget push nupkgs/*.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.TOKEN_NUGET_ORG }} --skip-duplicate
